@@ -8,9 +8,10 @@ using ContosoUniversity.Data;
 namespace ContosoUniversity.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20161230134156_ComplesDataModel")]
+    partial class ComplesDataModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -22,7 +23,7 @@ namespace ContosoUniversity.Migrations
 
                     b.Property<int>("Credits");
 
-                    b.Property<int>("DepartmentID");
+                    b.Property<int?>("DepartmentID");
 
                     b.Property<string>("Title")
                         .HasAnnotation("MaxLength", 50);
@@ -151,8 +152,7 @@ namespace ContosoUniversity.Migrations
                 {
                     b.HasOne("ContosoUniversity.Models.Department", "Department")
                         .WithMany("Courses")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DepartmentID");
                 });
 
             modelBuilder.Entity("ContosoUniversity.Models.CourseAssignment", b =>
