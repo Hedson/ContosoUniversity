@@ -22,7 +22,10 @@ namespace ContosoUniversity.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Courses.ToListAsync());
+            var courses = _context.Courses
+                .Include(c => c.Department)
+                .AsNoTracking();
+            return View(await courses.ToListAsync());
         }
 
         // GET: Courses/Details/5
@@ -45,6 +48,7 @@ namespace ContosoUniversity.Controllers
         // GET: Courses/Create
         public IActionResult Create()
         {
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID");
             return View();
         }
 
@@ -53,7 +57,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Credits,Title")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseID,Credits,DepartmentID,Title")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +65,7 @@ namespace ContosoUniversity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID", course.DepartmentID);
             return View(course);
         }
 
@@ -77,6 +82,7 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID", course.DepartmentID);
             return View(course);
         }
 
@@ -85,7 +91,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CourseID,Credits,Title")] Course course)
+        public async Task<IActionResult> Edit(int id, [Bind("CourseID,Credits,DepartmentID,Title")] Course course)
         {
             if (id != course.CourseID)
             {
@@ -112,6 +118,7 @@ namespace ContosoUniversity.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            ViewData["DepartmentID"] = new SelectList(_context.Departments, "DepartmentID", "DepartmentID", course.DepartmentID);
             return View(course);
         }
 

@@ -1,4 +1,4 @@
-@model ContosoUniversity.Models.Course
+@model ContosoUniversity.Models.Instructor
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,29 +8,29 @@
 
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <h4>Course</h4>
+        <h4>Instructor</h4>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="CourseID" />
+    <input type="hidden" asp-for="ID" />
         <div class="form-group">
-            <label asp-for="Credits" class="col-md-2 control-label"></label>
+            <label asp-for="FirstMidName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Credits" class="form-control" />
-                <span asp-validation-for="Credits" class="text-danger" />
+                <input asp-for="FirstMidName" class="form-control" />
+                <span asp-validation-for="FirstMidName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="DepartmentID" class="control-label col-md-2"></label>
+            <label asp-for="HireDate" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="DepartmentID" class="form-control" asp-items="ViewBag.DepartmentID"></select>
-                <span asp-validation-for="DepartmentID" class="text-danger" />
+                <input asp-for="HireDate" class="form-control" />
+                <span asp-validation-for="HireDate" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <label asp-for="LastName" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger" />
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
